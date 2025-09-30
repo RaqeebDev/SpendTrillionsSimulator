@@ -1,0 +1,5 @@
+morning - 12:00 [ learn ]
+
+12:00 - 9:00 [Solve]
+
+10:00 - 11:00 [web dev]
