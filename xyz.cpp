@@ -1,7 +1,18 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
-using ll = long long;
+int main ()
+{
+ int  n , steps = 0  ;
+ cin>>n;
+ steps = n/5;
+ if(n%5!=0)
+ {
+     steps +=1;
+ }
+ cout<<steps<<endl;
 
-int main() {
-    
 }
+
+
+
+//question :https://codeforces.com/problemset/problem/617/A
