@@ -1,18 +1,28 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-int main ()
+int main()
 {
- int  n , steps = 0  ;
- cin>>n;
- steps = n/5;
- if(n%5!=0)
- {
-     steps +=1;
- }
- cout<<steps<<endl;
+    string s;
+    cin >> s;
+    int cnt = 0;
+    for (long long i = 0; i < s.size(); ++i)
+    {
+        if (s[i] == '4' || s[i] == '7')
+        {
+            cnt++;
+        }
+    }
 
+    if (cnt == 7 || cnt == 4)
+    {
+        cout << "YES";
+    }
+    else
+    {
+        cout << "NO";
+    }
 }
 
-
-
-//question :https://codeforces.com/problemset/problem/617/A
+// cost of first = k
+//  initial dollars
+// number of bananas
