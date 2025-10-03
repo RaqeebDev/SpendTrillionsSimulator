@@ -3,57 +3,168 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Spend Trillions Simulator</title>
   </head>
 
   <style>
-    body {
-        background-color: #f0f0f0;
-      /* justify-content: center; */
-      align-items: center;
-      flex-direction: column;
-      height: 100vh;
-      display: flex;
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, sans-serif;
     }
 
-    .Cards{
-        justify-content: center;
-        display: flex;
-        flex-wrap:wrap ;
-        margin-top:100px ;
+    /* Header */
+    header {
+      text-align: center;
+      padding: 20px;
+      background: #f9f9f9;
+      border-bottom: 2px solid #ddd;
     }
-    .card{
-        width: 25px;
-        height: 10px;
+    header h1 {
+      font-size: 2rem;
+      color: #333;
+    }
+
+    /* Sticky Balance Bar */
+    .balance-bar {
+      position: sticky;
+      top: 0;
+      background: #00c389;
+      text-align: center;
+      padding: 15px;
+      z-index: 1000;
+    }
+    .balance-bar h2 {
+      color: #fff;
+      font-size: 1.8rem;
+    }
+
+    /* Items grid */
+    .items-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      padding: 30px;
+    }
+
+    /* Card */
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      padding: 15px;
+      text-align: center;
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    .card img {
+      width: 100%;
+      height: 150px;
+      object-fit: contain;
+    }
+    .card h3 {
+      margin: 10px 0;
+      font-size: 1.2rem;
+      color: #222;
+    }
+    .price {
+      font-size: 1rem;
+      font-weight: bold;
+      color: #00b074;
+      margin-bottom: 10px;
+    }
+
+    /* Buttons + input */
+    .actions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+    }
+    .actions button {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      color: white;
+    }
+    .actions .buy {
+      background: #00b074;
+    }
+    .actions .sell {
+      background: #ff4444;
+    }
+    .actions input {
+      width: 50px;
+      text-align: center;
+      padding: 4px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
     }
   </style>
   <body>
-    <h1 style="margin: 0; padding: 0">Spend Trillions Simulator</h1>
-    <h1 style="margin: 0; padding: 0">$10,000,000,000,000</h1>
+    <!-- Heading -->
+    <header>
+      <h1>Spend Trillions Simulator</h1>
+    </header>
 
-    <div class="Cards">
+    <!-- Sticky Balance Bar -->
+    <div class="balance-bar">
+      <h2>$1,000,000,000,000</h2>
+    </div>
+
+    <!-- Items Section -->
+    <main class="items-container">
+      <!-- Example card -->
       <div class="card">
-        <img src="Assets/big-mac.jpg" alt="big-mac" />
-        <div class="cardcontent">
-          <h2>100$</h2>
-          <a href="" class="btn">Buy</a>
-          <a href="" class="btn">Sell</a>
-        </div>
-      <div class="card">
-        <img src="Assets/flip-flops.jpg" alt="big-mac" />
-        <div class="cardcontent">
-          <h2>100$</h2>
-          <a href="" class="btn">Buy</a>
-          <a href="" class="btn">Sell</a>
-        </div>
-      <div class="card">
-        <img src="Assets/coca-cola-pack.jpg" alt="big-mac" />
-        <div class="cardcontent">
-          <h2>100$</h2>
-          <a href="" class="btn">Buy</a>
-          <a href="" class="btn">Sell</a>
+        <img src="Assets/big-mac.jpg" alt="Big Mac" />
+        <h3>Big Mac</h3>
+        <p class="price">$2</p>
+        <div class="actions">
+          <button class="sell">Sell</button>
+          <input type="number" value="0" min="0" />
+          <button class="buy">Buy</button>
         </div>
       </div>
-    </div>
+
+      <div class="card">
+        <img src="Assets/flip-flops.jpg" alt="Flip Flops" />
+        <h3>Flip Flops</h3>
+        <p class="price">$3</p>
+        <div class="actions">
+          <button class="sell">Sell</button>
+          <input type="number" value="0" min="0" />
+          <button class="buy">Buy</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="Assets/coca-cola-pack.jpg" alt="Coca Cola Pack" />
+        <h3>Coca-Cola Pack</h3>
+        <p class="price">$5</p>
+        <div class="actions">
+          <button class="sell">Sell</button>
+          <input type="number" value="0" min="0" />
+          <button class="buy">Buy</button>
+        </div>
+      </div>
+
+      <!-- keep adding items (cheap → expensive) -->
+      <!-- Example for high price -->
+      <div class="card">
+        <img src="Assets/space_station.png" alt="Space Station" />
+        <h3>Space Station</h3>
+        <p class="price">$150,000,000,000</p>
+        <div class="actions">
+          <button class="sell">Sell</button>
+          <input type="number" value="0" min="0" />
+          <button class="buy">Buy</button>
+        </div>
+      </div>
+    </main>
   </body>
 </html>
