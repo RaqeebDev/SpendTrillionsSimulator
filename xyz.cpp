@@ -1,28 +1,27 @@
+
 #include <bits/stdc++.h>
 using namespace std;
 int main()
 {
-    string s;
-    cin >> s;
-    int cnt = 0;
-    for (long long i = 0; i < s.size(); ++i)
+    int n, h;
+    cin >> n >> h; // min high
+    int width = 0;
+
+    vector<int> xyz(n);
+    for (int i = 0; i < n; ++i)
     {
-        if (s[i] == '4' || s[i] == '7')
+        cin >> xyz[i];
+
+        if (xyz[i] > h)
         {
-            cnt++;
+            width++;
+            width++;
+        }
+        else
+        {
+            width++;
         }
     }
 
-    if (cnt == 7 || cnt == 4)
-    {
-        cout << "YES";
-    }
-    else
-    {
-        cout << "NO";
-    }
+    cout << width << endl;
 }
-
-// cost of first = k
-//  initial dollars
-// number of bananas

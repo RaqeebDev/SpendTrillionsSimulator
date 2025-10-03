@@ -8,15 +8,52 @@
 
   <style>
     body {
+        background-color: #f0f0f0;
       /* justify-content: center; */
       align-items: center;
       flex-direction: column;
       height: 100vh;
       display: flex;
     }
+
+    .Cards{
+        justify-content: center;
+        display: flex;
+        flex-wrap:wrap ;
+        margin-top:100px ;
+    }
+    .card{
+        width: 25px;
+        height: 10px;
+    }
   </style>
   <body>
     <h1 style="margin: 0; padding: 0">Spend Trillions Simulator</h1>
     <h1 style="margin: 0; padding: 0">$10,000,000,000,000</h1>
+
+    <div class="Cards">
+      <div class="card">
+        <img src="Assets/big-mac.jpg" alt="big-mac" />
+        <div class="cardcontent">
+          <h2>100$</h2>
+          <a href="" class="btn">Buy</a>
+          <a href="" class="btn">Sell</a>
+        </div>
+      <div class="card">
+        <img src="Assets/flip-flops.jpg" alt="big-mac" />
+        <div class="cardcontent">
+          <h2>100$</h2>
+          <a href="" class="btn">Buy</a>
+          <a href="" class="btn">Sell</a>
+        </div>
+      <div class="card">
+        <img src="Assets/coca-cola-pack.jpg" alt="big-mac" />
+        <div class="cardcontent">
+          <h2>100$</h2>
+          <a href="" class="btn">Buy</a>
+          <a href="" class="btn">Sell</a>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
