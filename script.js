@@ -1,93 +1,172 @@
- let moneyLeft = 1000000000000;
-      const moneyDisplay = document.querySelector(".leftmoney h2");
+let balance = 1000000000000;
+      const balanceDisplay = document.querySelector(".leftmoney h2");
       const receiptItems = document.querySelector(".items-list");
       const receiptTotal = document.querySelector(".total");
 
-      function formatMoney(amount) {
-        return "$" + amount.toLocaleString();
+      let totalSpent = 0;
+      let receiptData = [];
+
+      function formatFullNumber(num) {
+        return "$" + num.toLocaleString();
       }
 
-      function updateMoneyDisplay(oldAmount, newAmount) {
-        const change = newAmount - oldAmount;
-        const steps = 20;
-        const stepTime = 20;
+      function animateBalance(oldBalance, newBalance, duration = 500) {
+        const start = oldBalance;
+        const end = newBalance;
+        const diff = end - start;
+        const startTime = performance.now();
 
-        let currentStep = 0;
-        const timer = setInterval(() => {
-          currentStep++;
-          const currentAmount = oldAmount + (change * currentStep) / steps;
-          moneyDisplay.textContent = formatMoney(Math.round(currentAmount));
-
-          if (currentStep >= steps) {
-            clearInterval(timer);
-            moneyDisplay.textContent = formatMoney(newAmount);
+        function step(currentTime) {
+          const progress = Math.min((currentTime - startTime) / duration, 1);
+          const value = Math.round(start + diff * progress);
+          balanceDisplay.textContent = formatFullNumber(value);
+          if (progress < 1) {
+            requestAnimationFrame(step);
+          } else {
+            balanceDisplay.textContent = formatFullNumber(end);
           }
-        }, stepTime);
+        }
+
+        requestAnimationFrame(step);
       }
 
-      function refreshReceipt() {
+      function updateBalance(newBalance) {
+        animateBalance(balance, newBalance);
+        balance = newBalance;
+      }
+
+      function showNotification(message, isSuccess) {
+        const notification = document.createElement("div");
+        notification.className = `notification ${
+          isSuccess ? "success" : "error"
+        }`;
+        notification.textContent = message;
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+          notification.style.opacity = "1";
+        }, 10);
+
+        setTimeout(() => {
+          notification.style.opacity = "0";
+          setTimeout(() => {
+            document.body.removeChild(notification);
+          }, 300);
+        }, 3000);
+      }
+
+      function updateReceipt(itemName, price, quantity, isBuy) {
+        const transactionAmount = price * quantity;
+
+        if (isBuy) {
+          totalSpent += transactionAmount;
+
+          const existingItem = receiptData.find(
+            (item) => item.name === itemName
+          );
+          if (existingItem) {
+            existingItem.quantity += quantity;
+            existingItem.total += transactionAmount;
+          } else {
+            receiptData.push({
+              name: itemName,
+              quantity: quantity,
+              total: transactionAmount,
+            });
+          }
+        } else {
+          totalSpent -= transactionAmount;
+
+          const existingItem = receiptData.find(
+            (item) => item.name === itemName
+          );
+          if (existingItem) {
+            existingItem.quantity -= quantity;
+            existingItem.total -= transactionAmount;
+
+            if (existingItem.quantity <= 0) {
+              receiptData = receiptData.filter(
+                (item) => item.name !== itemName
+              );
+            }
+          }
+        }
+
+        renderReceipt();
+      }
+
+      function renderReceipt() {
         receiptItems.innerHTML = "";
-        let overallTotal = 0;
 
-        document.querySelectorAll(".card").forEach((itemCard) => {
-          const itemName = itemCard.querySelector("h3").textContent;
-          const itemPriceText = itemCard
-            .querySelector(".price")
-            .textContent.replace(/[$,]/g, "");
-          const itemPrice = parseFloat(itemPriceText);
-          const itemQuantity =
-            parseInt(itemCard.querySelector("input").value) || 0;
+        if (receiptData.length === 0) {
+          receiptItems.innerHTML = "<div>No items purchased</div>";
+          receiptTotal.textContent = "TOTAL: $0";
+          return;
+        }
 
-          if (itemQuantity > 0) {
-            const itemTotal = itemPrice * itemQuantity;
-            overallTotal += itemTotal;
-
-            const receiptLine = document.createElement("div");
-            receiptLine.textContent = `${itemName} x${itemQuantity} ${formatMoney(
-              itemTotal
-            )}`;
-            receiptItems.appendChild(receiptLine);
-          }
+        receiptData.forEach((item) => {
+          const itemElement = document.createElement("div");
+          itemElement.innerHTML = `
+          <span>${item.name} (${item.quantity})</span>
+          <span>$${item.total.toLocaleString()}</span>
+        `;
+          receiptItems.appendChild(itemElement);
         });
 
-        receiptTotal.textContent = `TOTAL: ${formatMoney(overallTotal)}`;
+        receiptTotal.textContent = `TOTAL: $${totalSpent.toLocaleString()}`;
       }
 
-      document.querySelectorAll(".card").forEach((itemCard) => {
-        const itemPriceText = itemCard
+      document.querySelectorAll(".card").forEach((card) => {
+        const priceText = card
           .querySelector(".price")
           .textContent.replace(/[$,]/g, "");
-        const itemPrice = parseFloat(itemPriceText);
-        const quantityInput = itemCard.querySelector("input");
-        const buyButton = itemCard.querySelector(".buy");
-        const sellButton = itemCard.querySelector(".sell");
+        const price = parseFloat(priceText);
+        const input = card.querySelector("input");
+        const buyBtn = card.querySelector(".buy");
+        const sellBtn = card.querySelector(".sell");
+        const itemName = card.querySelector("h3").textContent;
 
-        let currentQuantity = 0;
-        quantityInput.value = currentQuantity;
+        let owned = 0;
+        input.value = owned;
 
-        buyButton.addEventListener("click", () => {
-          const canAfford = Math.floor(moneyLeft / itemPrice);
-          if (canAfford <= 0) return;
+        buyBtn.addEventListener("click", () => {
+          let qty = parseInt(input.value);
+          if (isNaN(qty) || qty < 0) qty = 0;
 
-          currentQuantity += 1;
-          quantityInput.value = currentQuantity;
-          const oldMoney = moneyLeft;
-          moneyLeft -= itemPrice;
-          updateMoneyDisplay(oldMoney, moneyLeft);
-          refreshReceipt();
+          const maxAffordable = Math.floor(balance / price);
+          if (maxAffordable <= 0) {
+            showNotification("Insufficient funds!", false);
+            return;
+          }
+
+          qty = 1;
+          const totalCost = price * qty;
+
+          if (balance >= totalCost) {
+            updateBalance(balance - totalCost);
+            owned += qty;
+            input.value = owned;
+            updateReceipt(itemName, price, qty, true);
+            showNotification(`Purchased ${qty} ${itemName}`, true);
+          } else {
+            showNotification("Insufficient funds!", false);
+          }
         });
 
-        sellButton.addEventListener("click", () => {
-          if (currentQuantity <= 0) return;
+        sellBtn.addEventListener("click", () => {
+          if (owned <= 0) {
+            showNotification("You don't own any of this item!", false);
+            return;
+          }
 
-          currentQuantity -= 1;
-          quantityInput.value = currentQuantity;
-          const oldMoney = moneyLeft;
-          moneyLeft += itemPrice;
-          updateMoneyDisplay(oldMoney, moneyLeft);
-          refreshReceipt();
+          const qty = 1;
+          updateBalance(balance + price * qty);
+          owned -= qty;
+          input.value = owned;
+          updateReceipt(itemName, price, qty, false);
+          showNotification(`Sold ${qty} ${itemName}`, true);
         });
       });
 
-      moneyDisplay.textContent = formatMoney(moneyLeft);
-      refreshReceipt();
+      balanceDisplay.textContent = formatFullNumber(balance);
+      renderReceipt();

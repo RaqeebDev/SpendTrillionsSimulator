@@ -1,149 +1,162 @@
+* {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, sans-serif;
+      }
 
-  
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Segoe UI", Tahoma, sans-serif;
-    }
+      body {
+        background-color: #f5f5f5;
+      }
 
-    
-    header {
-      text-align: center;
-      padding: 20px;
-      background: #f9f9f9;
-      border-bottom: 2px solid #ddd;
-    }
-    header h1 {
-      font-size: 2rem;
-      color: #333;
-    }
+      header {
+        text-align: center;
+        padding: 20px;
+        background: #f9f9f9;
+        border-bottom: 2px solid #ddd;
+      }
+      header h1 {
+        font-size: 2rem;
+        color: #333;
+      }
 
-   
-    .leftmoney {
-      position: sticky;
-      top: 0;
-      background: #00c389;
-      text-align: center;
-      padding: 15px;
-      z-index: 1000;
-    }
-    .leftmoney h2 {
-      color: #fff;
-      font-size: 1.8rem;
-    }
+      .leftmoney {
+        position: sticky;
+        top: 0;
+        background: #000000;
+        text-align: center;
+        padding: 15px;
+        z-index: 1000;
+      }
+      .leftmoney h2 {
+        color: #fff;
+        font-size: 1.8rem;
+      }
 
-   
-    .items-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-      padding: 30px;
-    }
+      .items-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+        padding: 30px;
+      }
 
-   
-    .card {
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      padding: 15px;
-      text-align: center;
-      transition: transform 0.2s;
-    }
-    .card:hover {
-      transform: translateY(-5px);
-    }
-    .card img {
-      width: 100%;
-      height: 150px;
-      object-fit: contain;
-    }
-    .card h3 {
-      margin: 10px 0;
-      font-size: 1.2rem;
-      color: #222;
-    }
-    .price {
-      font-size: 1rem;
-      font-weight: bold;
-      color: #00b074;
-      margin-bottom: 10px;
-    }
+      .card {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        padding: 15px;
+        text-align: center;
+        transition: transform 0.2s;
+      }
+      .card:hover {
+        transform: translateY(-5px);
+      }
+      .card img {
+        width: 100%;
+        height: 150px;
+        object-fit: contain;
+      }
+      .card h3 {
+        margin: 10px 0;
+        font-size: 1.2rem;
+        color: #222;
+      }
+      .price {
+        font-size: 1rem;
+        font-weight: bold;
+        color: #00b074;
+        margin-bottom: 10px;
+      }
 
-   
-    .actions {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
-    }
-    .actions button {
-      padding: 6px 12px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      color: white;
-    }
-    .actions .buy {
-      background: #00b074;
-    }
-    .actions .sell {
-      background: #ff4444;
-    }
-    .actions input {
-      width: 50px;
-      text-align: center;
-      padding: 4px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-    }
+      .actions {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+      }
+      .actions button {
+        padding: 6px 12px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        color: white;
+        transition: background-color 0.2s;
+      }
+      .actions .buy {
+        background: #00b074;
+      }
+      .actions .buy:hover {
+        background: #008c5c;
+      }
+      .actions .sell {
+        background: #ff4444;
+      }
+      .actions .sell:hover {
+        background: #cc3636;
+      }
+      .actions input {
+        width: 50px;
+        text-align: center;
+        padding: 4px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
 
-    /* Receipt box styling */
-.receipt {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 320px;
-  background: #111;               /* dark background */
-  color: #eee;                    /* light text */
-  border: 2px solid #00ff99;      /* neon green border */
-  border-radius: 12px;
-  padding: 15px;
-  box-shadow: 0 0 15px rgba(0, 255, 153, 0.6);
-  font-family: "Courier New", monospace; /* receipt font feel */
-  max-height: 50vh;
-  overflow-y: auto;
-}
 
-/* Receipt heading */
-.receipt h2 {
-  margin: 0 0 10px;
-  font-size: 1.2rem;
-  text-align: center;
-  color: #00ff99;
-  border-bottom: 1px dashed #00ff99;
-  padding-bottom: 5px;
-}
 
-/* Items list */
-.items-list {
-  margin-bottom: 10px;
-  font-size: 0.95rem;
-}
+      .items-list {
+        margin-bottom: 10px;
+        font-size: 0.95rem;
+      }
 
-.items-list div {
-  display: flex;
-  justify-content: space-between;
-  margin: 4px 0;
-  padding: 2px 0;
-  border-bottom: 1px dotted rgba(255, 255, 255, 0.1);
-}
+      .items-list div {
+        display: flex;
+        justify-content: space-between;
+        margin: 4px 0;
+        padding: 2px 0;
+        border-bottom: 1px dotted rgba(255, 255, 255, 0.1);
+      }
 
-/* Total section */
-.total {
-  font-weight: bold;
-  font-size: 1.05rem;
-  text-align: right;
-  margin-top: 10px;
-  color: #00ff99;
-}
+      .total {
+        font-weight: bold;
+        font-size: 1.05rem;
+        text-align: right;
+        margin-top: 10px;
+        color: #00ff99;
+      }
+
+      .notification {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 12px 20px;
+        border-radius: 5px;
+        color: white;
+        font-weight: bold;
+        z-index: 1001;
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      .notification.success {
+        background-color: #00c389;
+      }
+
+      .notification.error {
+        background-color: #ff4444;
+      }
+
+      @media (max-width: 768px) {
+        .receipt {
+          position: relative;
+          bottom: auto;
+          right: auto;
+          width: 100%;
+          margin-top: 20px;
+        }
+
+        .items-container {
+          grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+          padding: 15px;
+        }
+      }
