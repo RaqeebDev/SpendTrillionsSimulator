@@ -1,4 +1,4 @@
-# SpendTrillionsSimulator 
+# 💸SpendTrillionsSimulator 
  
 ## Project Description
 This is an interactive web app that simulates spending 10 Trillion Dollars. Users start with a huge balance and can “buy” various items — from luxury cars and private jets to islands. Every purchase decreases the balance and is tracked in a purchase history. The app is built using **HTML, CSS, and JavaScript** .
@@ -9,6 +9,6 @@ This is an interactive web app that simulates spending 10 Trillion Dollars. User
 - **CSS animations** and responsive design for better UX
 
 
-# Live here : https://spend-trillions-simulator.vercel.app/
+## ❗ Live here : https://spend-trillions-simulator.vercel.app/
 
 
